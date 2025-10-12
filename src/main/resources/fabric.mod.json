@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "reforestry",
+  "version": "${version}",
+  "name": "Re::Forestry",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/reforestry/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.lilbrocodes.reforestry.common.data.ReforestryDataGenerator"
+    ],
+    "client": [
+      "org.lilbrocodes.reforestry.client.ReforestryClient"
+    ],
+    "main": [
+      "org.lilbrocodes.reforestry.Reforestry"
+    ]
+  },
+  "mixins": [
+    "reforestry.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

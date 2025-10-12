@@ -34,9 +34,9 @@ public class ModConfiguredFeatures {
                         BlockStateProvider.of(ModBlocks.BLUE_SPRUCE_LEAVES.block),
 
                         new BlueSpruceFoliagePlacer(
-                                UniformIntProvider.create(2, 3),   // radius base — small
-                                ConstantIntProvider.create(0),   // offset — minimal vertical shift
-                                UniformIntProvider.create(8, 14)    // height — matches the trunk height pattern
+                                UniformIntProvider.create(2, 3),
+                                ConstantIntProvider.create(0),
+                                UniformIntProvider.create(8, 14)
                         ),
 
                         new TwoLayersFeatureSize(2, 0, 3)

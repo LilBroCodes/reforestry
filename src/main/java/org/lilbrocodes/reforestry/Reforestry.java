@@ -12,6 +12,7 @@ public class Reforestry implements ModInitializer {
         ModBlocks.initialize();
         ModFeatures.initialize();
         ModItemGroups.initialize();
+        ModTrunkPlacers.initialize();
         ModFoliagePlacers.initialize();
         ModWorldGeneration.initialize();
     }

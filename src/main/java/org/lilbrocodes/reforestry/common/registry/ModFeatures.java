@@ -15,6 +15,8 @@ import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.lilbrocodes.reforestry.Reforestry;
 import org.lilbrocodes.reforestry.common.tree.foliage.BlueSpruceFoliagePlacer;
+import org.lilbrocodes.reforestry.common.tree.foliage.EarthspineFoliagePlacer;
+import org.lilbrocodes.reforestry.common.tree.trunk.EarthspineTrunkPlacer;
 
 import java.util.OptionalInt;
 
@@ -56,9 +58,9 @@ public class ModFeatures {
                     Feature.TREE,
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(ModBlocks.EARTHSPINE_LOG.block),
-                            new DarkOakTrunkPlacer(6, 2, 1),
+                            new EarthspineTrunkPlacer(6, 2, 1),
                             BlockStateProvider.of(ModBlocks.EARTHSPINE_LEAVES.block),
-                            new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
+                            new EarthspineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
                             new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
                     ).ignoreVines().build()
             );

@@ -2,7 +2,6 @@ package org.lilbrocodes.reforestry.common.tree.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
@@ -11,6 +10,8 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import org.lilbrocodes.reforestry.common.registry.ModFoliagePlacers;
+
+import static org.lilbrocodes.reforestry.common.tree.foliage.EarthspineFoliagePlacer.placeLeaf;
 
 public class BlueSpruceFoliagePlacer extends FoliagePlacer {
     public static final Codec<BlueSpruceFoliagePlacer> CODEC = RecordCodecBuilder.create(
@@ -87,15 +88,6 @@ public class BlueSpruceFoliagePlacer extends FoliagePlacer {
                     placeLeaf(random, placer, world, leafPos, config);
                 }
             }
-        }
-    }
-
-    private void placeLeaf(Random random, BlockPlacer placer, TestableWorld world, BlockPos pos, TreeFeatureConfig config) {
-        if (world.testBlockState(pos, state ->
-                state.isAir() || state.isOf(config.foliageProvider.get(random, pos).getBlock())
-                        || state.isOf(Blocks.VINE)
-                        || state.isOf(Blocks.SNOW))) {
-            placer.placeBlock(pos, config.foliageProvider.get(random, pos));placer.placeBlock(pos, config.foliageProvider.get(random, pos));
         }
     }
 

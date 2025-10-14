@@ -1,9 +1,9 @@
-// 1.20.1	2025-10-14T18:09:13.0909138	Re::Forestry/Block Loot Tables
-dd195083e2140bbb861025a3e206ead0dcbefa5d data\reforestry\loot_tables\blocks\blue_spruce_leaves.json
+// 1.20.1	2025-10-14T20:54:35.5785138	Re::Forestry/Block Loot Tables
 0739bcf4498577e78e651f64460763b9e3c3d375 data\reforestry\loot_tables\blocks\earthspine_leaves.json
+dd195083e2140bbb861025a3e206ead0dcbefa5d data\reforestry\loot_tables\blocks\blue_spruce_leaves.json
 60df7aa96196b0fc6dc951ddf4a0ae4d1ec9d804 data\reforestry\loot_tables\blocks\earthspine_sapling.json
-2f0572af54882f576433b0ce9f0cb0a58ec7e000 data\reforestry\loot_tables\blocks\earthspine_log.json
 65bec22bf7282b82b2190ecb17c0fbfa96f25352 data\reforestry\loot_tables\blocks\earthspine_wood.json
+2f0572af54882f576433b0ce9f0cb0a58ec7e000 data\reforestry\loot_tables\blocks\earthspine_log.json
 c9933de8cada28c29359f3de54acc31ca3dae8b5 data\reforestry\loot_tables\blocks\stripped_earthspine_log.json
 5cde99af8e1a3b8e41143cfa3f5ff676b12482d2 data\reforestry\loot_tables\blocks\stripped_earthspine_wood.json
 a227431059eb13aa4271c54a234767569b05f203 data\reforestry\loot_tables\blocks\blue_spruce_sapling.json

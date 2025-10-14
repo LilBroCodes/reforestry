@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "reforestry:blue_spruce_sapling"
+    "reforestry:blue_spruce_sapling",
+    "reforestry:earthspine_sapling"
   ]
 }

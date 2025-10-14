@@ -16,9 +16,11 @@ public class ReforestryBlockTagProvider extends FabricTagProvider.BlockTagProvid
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
-                .add(ModBlocks.BLUE_SPRUCE_SAPLING.block);
+                .add(ModBlocks.BLUE_SPRUCE_SAPLING.block)
+                .add(ModBlocks.EARTHSPINE_SAPLING.block);
 
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
-                .add(ModBlocks.BLUE_SPRUCE_SAPLING.block);
+                .add(ModBlocks.BLUE_SPRUCE_SAPLING.block)
+                .add(ModBlocks.EARTHSPINE_SAPLING.block);
     }
 }

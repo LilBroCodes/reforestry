@@ -31,7 +31,12 @@ public class ReforestryModelProvider implements DataProvider {
 
     public static void generateBlocks(BlockStateModelGenerator generator) {
         generator.registerFlowerPotPlant(ModBlocks.BLUE_SPRUCE_SAPLING.block, ModBlocks.POTTED_BLUE_SPRUCE_SAPLING.block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(ModBlocks.EARTHSPINE_SAPLING.block, ModBlocks.POTTED_EARTHSPINE_SAPLING.block, BlockStateModelGenerator.TintType.NOT_TINTED);
         generator.registerSingleton(ModBlocks.BLUE_SPRUCE_LEAVES.block, TexturedModel.LEAVES);
+        generator.registerSingleton(ModBlocks.EARTHSPINE_LEAVES.block, TexturedModel.LEAVES);
+
+        generator.registerLog(ModBlocks.EARTHSPINE_LOG.block).log(ModBlocks.EARTHSPINE_LOG.block).wood(ModBlocks.EARTHSPINE_WOOD.block);
+        generator.registerLog(ModBlocks.STRIPPED_EARTHSPINE_LOG.block).log(ModBlocks.STRIPPED_EARTHSPINE_LOG.block).wood(ModBlocks.STRIPPED_EARTHSPINE_WOOD.block);
     }
 
     public static void generateItems(ItemModelGenerator generator) {

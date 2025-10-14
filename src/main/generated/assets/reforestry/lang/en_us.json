@@ -1,5 +1,11 @@
 {
   "block.reforestry.blue_spruce_leaves": "Blue Spruce Leaves",
   "block.reforestry.blue_spruce_sapling": "Blue Spruce Sapling",
+  "block.reforestry.earthspine_leaves": "Earthspine Leaves",
+  "block.reforestry.earthspine_log": "Earthspine Log",
+  "block.reforestry.earthspine_sapling": "Earthspine Sapling",
+  "block.reforestry.earthspine_wood": "Earthspine Wood",
+  "block.reforestry.stripped_earthspine_log": "Stripped Earthspine Log",
+  "block.reforestry.stripped_earthspine_wood": "Stripped Earthspine Wood",
   "itemGroup.reforestry": "Re::Forestry"
 }

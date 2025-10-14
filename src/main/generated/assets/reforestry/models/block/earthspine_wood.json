@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "reforestry:block/earthspine_log",
+    "side": "reforestry:block/earthspine_log"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "reforestry:block/stripped_earthspine_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "reforestry:block/stripped_earthspine_log"
+    },
+    "axis=z": {
+      "model": "reforestry:block/stripped_earthspine_log_horizontal",
+      "x": 90
+    }
+  }
+}

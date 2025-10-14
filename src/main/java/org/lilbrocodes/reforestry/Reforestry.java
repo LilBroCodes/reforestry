@@ -2,10 +2,7 @@ package org.lilbrocodes.reforestry;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
-import org.lilbrocodes.reforestry.common.registry.ModBlocks;
-import org.lilbrocodes.reforestry.common.registry.ModFoliagePlacers;
-import org.lilbrocodes.reforestry.common.registry.ModItemGroups;
-import org.lilbrocodes.reforestry.common.registry.ModWorldGeneration;
+import org.lilbrocodes.reforestry.common.registry.*;
 
 public class Reforestry implements ModInitializer {
     public static final String MOD_ID = "reforestry";
@@ -13,6 +10,7 @@ public class Reforestry implements ModInitializer {
     @Override
     public void onInitialize() {
         ModBlocks.initialize();
+        ModFeatures.initialize();
         ModItemGroups.initialize();
         ModFoliagePlacers.initialize();
         ModWorldGeneration.initialize();

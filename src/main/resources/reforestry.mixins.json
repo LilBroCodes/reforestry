@@ -6,7 +6,9 @@
   "mixins": [
     "BlockStateModelGeneratorMixin",
     "ComposterBlockMixin",
-    "FireBlockMixin"
+    "FireBlockMixin",
+    "features.ConfiguredFeaturesMixin",
+    "features.PlacedFeaturesMixin"
   ],
   "client": [
   ],

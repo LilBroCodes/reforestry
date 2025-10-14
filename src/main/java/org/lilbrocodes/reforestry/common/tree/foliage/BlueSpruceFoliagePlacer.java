@@ -15,7 +15,7 @@ import org.lilbrocodes.reforestry.common.registry.ModFoliagePlacers;
 public class BlueSpruceFoliagePlacer extends FoliagePlacer {
     public static final Codec<BlueSpruceFoliagePlacer> CODEC = RecordCodecBuilder.create(
             instance -> fillFoliagePlacerFields(instance)
-                    .and(IntProvider.createValidatingCodec(4, 12)
+                    .and(IntProvider.createValidatingCodec(8, 14)
                             .fieldOf("height")
                             .forGetter(placer -> placer.height))
                     .apply(instance, BlueSpruceFoliagePlacer::new)

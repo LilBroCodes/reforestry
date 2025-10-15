@@ -37,6 +37,11 @@ public class EarthspineFoliagePlacer extends FoliagePlacer {
         return ModFoliagePlacers.EARTHSPINE_FOLIAGE_PLACER;
     }
 
+    int horizontalRadius = 3;
+    int verticalRadius = 3;
+    float density = 0.5f;
+    float falloff = 0.5f;
+
     @Override
     protected void generate(
             TestableWorld world,
@@ -52,11 +57,6 @@ public class EarthspineFoliagePlacer extends FoliagePlacer {
         if (treeNode.isGiantTrunk() || !(((Object) treeNode) instanceof TreeNodeDataAccessor accessor))
             return;
 
-        int horizontalRadius = 3;
-        int verticalRadius = 3;
-        float density = 0.5f;
-        ShapeType shape = ShapeType.SPHERE;
-        float falloff = 0.5f;
         EnumSet<Direction> excludedSides = EnumSet.noneOf(Direction.class);
 
         List<BlockPos> basePositions = accessor.reForestry$getPositions();
@@ -68,7 +68,7 @@ public class EarthspineFoliagePlacer extends FoliagePlacer {
 
                         BlockPos targetPos = basePos.add(dx, dy, dz);
 
-                        if (!isInsideShape(dx, dy, dz, shape, horizontalRadius, verticalRadius))
+                        if (!isInsideShape(dx, dy, dz, ShapeType.SPHERE, horizontalRadius, verticalRadius))
                             continue;
 
                         if (Math.abs(dx) + Math.abs(dz) == 1 && dy == 0) {

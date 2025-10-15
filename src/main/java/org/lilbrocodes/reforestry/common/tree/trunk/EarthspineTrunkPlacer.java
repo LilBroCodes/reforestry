@@ -34,6 +34,26 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
         return ModTrunkPlacers.EARTHSPINE_PLACER;
     }
 
+
+    int trunkBaseRadius = 3;
+    double trunkTaperAmount = 0.3;
+    double trunkStep = 0.4;
+    double trunkTiltMin = 10;
+    double trunkTiltMax = 20;
+    int trunkHeightVariance = 2;
+
+    int branchCountMin = 3;
+    int branchCountMax = 6;
+    double branchLengthMin = 5;
+    double branchLengthMax = 8;
+    double branchRadiusMin = 0.5;
+    double branchRadiusMax = 0.6;
+    double branchTiltMin = 0;
+    double branchTiltMax = 0;
+    double branchVerticalAttachMin = 0.7;
+    double branchVerticalAttachMax = 1.0;
+
+
     @Override
     public List<FoliagePlacer.TreeNode> generate(
             TestableWorld world,
@@ -43,26 +63,8 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
             BlockPos startPos,
             TreeFeatureConfig config
     ) {
-        int trunkBaseRadius = 3;
-        double trunkTaperAmount = 0.3;
-        double trunkStep = 0.4;
-        double trunkTiltMin = 10;
-        double trunkTiltMax = 20;
-        int trunkHeightVariance = 2;
-
-        int branchCountMin = 3;
-        int branchCountMax = 6;
-        double branchLengthMin = 5;
-        double branchLengthMax = 8;
-        double branchRadiusMin = 0.5;
-        double branchRadiusMax = 0.6;
-        double branchTiltMin = 0;
-        double branchTiltMax = 0;
-        double branchVerticalAttachMin = 0.7;
-        double branchVerticalAttachMax = 1.0;
 
         boolean addTrunkTopFoliage = true;
-
 
         int baseRadius = trunkBaseRadius + random.nextInt(1);
         int totalHeight = this.getHeight(random) + 2 + random.nextInt(trunkHeightVariance + 1);

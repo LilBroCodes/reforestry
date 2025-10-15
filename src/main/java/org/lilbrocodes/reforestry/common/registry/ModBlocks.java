@@ -78,7 +78,7 @@ public class ModBlocks {
 
     public static final BlockWithItem<StairsBlock> EARTHSPINE_STAIRS = BLOCKS.register(
             "earthspine_stairs",
-            new StairsBlock(OAK_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(OAK_PLANKS))
+            new StairsBlock(WARPED_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(WARPED_PLANKS))
     );
 
 
@@ -86,7 +86,7 @@ public class ModBlocks {
             "earthspine_door",
             new DoorBlock(
                     AbstractBlock.Settings.create()
-                            .mapColor(OAK_PLANKS.getDefaultMapColor())
+                            .mapColor(WARPED_PLANKS.getDefaultMapColor())
                             .instrument(Instrument.BASS)
                             .strength(3.0F)
                             .nonOpaque()

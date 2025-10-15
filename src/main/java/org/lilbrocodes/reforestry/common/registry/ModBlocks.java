@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.sound.BlockSoundGroup;
 import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredBlockRegistry;
@@ -74,34 +75,39 @@ public class ModBlocks {
             "earthspine_leaves",
             createLeavesBlock(BlockSoundGroup.GRASS)
     );
-//
-//    public static final BlockWithItem<StairsBlock> EARTHSPINE_STAIRS = BLOCKS.register(
-//            "earthspine_stairs",
-//            new StairsBlock(OAK_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(OAK_PLANKS))
-//    );
 
-//
-//    public static final BlockWithItem<DoorBlock> EARTHSPINE_DOOR = BLOCKS.register(
-//            "earthspine_door",
-//            new DoorBlock(
-//                    AbstractBlock.Settings.create()
-//                            .mapColor(OAK_PLANKS.getDefaultMapColor())
-//                            .instrument(Instrument.BASS)
-//                            .strength(3.0F)
-//                            .nonOpaque()
-//                            .burnable()
-//                            .pistonBehavior(PistonBehavior.DESTROY),
-//                    BlockSetType.OAK
-//            )
-//    );
-//
-//    public static final BlockWithItem<WallSignBlock> EARTHSPINE_WALL_SIGN = BLOCKS.register(
-//            "earthspine_wall_sign",
-//            new WallSignBlock(
-//                    AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE_GRAY).solid().instrument(Instrument.BASS).noCollision().strength(1.0F).dropsLike(EARTHSPINE_SIGN.block).burnable(),
-//                    WoodType.OAK
-//            )
-//    );
+    public static final BlockWithItem<StairsBlock> EARTHSPINE_STAIRS = BLOCKS.register(
+            "earthspine_stairs",
+            new StairsBlock(OAK_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(OAK_PLANKS))
+    );
+
+
+    public static final BlockWithItem<DoorBlock> EARTHSPINE_DOOR = BLOCKS.register(
+            "earthspine_door",
+            new DoorBlock(
+                    AbstractBlock.Settings.create()
+                            .mapColor(OAK_PLANKS.getDefaultMapColor())
+                            .instrument(Instrument.BASS)
+                            .strength(3.0F)
+                            .nonOpaque()
+                            .burnable()
+                            .pistonBehavior(PistonBehavior.DESTROY),
+                    BlockSetType.OAK
+            )
+    );
+
+    public static final BlockWithItem<Block> EARTHSPINE_PLANKS = BLOCKS.register(
+            "earthspine_planks",
+            new Block(AbstractBlock.Settings.create().mapColor(MapColor.EMERALD_GREEN).instrument(Instrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).burnable())
+    );
+
+    public static final BlockWithItem<TrapdoorBlock> EARTHSPINE_TRAPDOOR = BLOCKS.register(
+            "earthspine_trapdoor",
+            new TrapdoorBlock(
+                    AbstractBlock.Settings.create().mapColor(MapColor.EMERALD_GREEN).instrument(Instrument.BASS).strength(3.0F).nonOpaque().allowsSpawning(Blocks::never).burnable(),
+                    BlockSetType.SPRUCE
+            )
+    );
 
     // TODO: Add the other stuff made out of the wood type here
 

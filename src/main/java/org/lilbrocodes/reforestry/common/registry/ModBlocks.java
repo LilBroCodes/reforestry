@@ -101,6 +101,8 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.EMERALD_GREEN).instrument(Instrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).burnable())
     );
 
+    //gay shit
+
     public static final BlockWithItem<TrapdoorBlock> EARTHSPINE_TRAPDOOR = BLOCKS.register(
             "earthspine_trapdoor",
             new TrapdoorBlock(

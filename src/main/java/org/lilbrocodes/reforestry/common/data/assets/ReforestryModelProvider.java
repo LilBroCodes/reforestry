@@ -37,6 +37,10 @@ public class ReforestryModelProvider implements DataProvider {
 
         generator.registerLog(ModBlocks.EARTHSPINE_LOG.block).log(ModBlocks.EARTHSPINE_LOG.block).wood(ModBlocks.EARTHSPINE_WOOD.block);
         generator.registerLog(ModBlocks.STRIPPED_EARTHSPINE_LOG.block).log(ModBlocks.STRIPPED_EARTHSPINE_LOG.block).wood(ModBlocks.STRIPPED_EARTHSPINE_WOOD.block);
+
+        generator.registerOrientableTrapdoor(ModBlocks.EARTHSPINE_TRAPDOOR.block);
+        generator.registerDoor(ModBlocks.EARTHSPINE_DOOR.block);
+        generator.registerSingleton(ModBlocks.EARTHSPINE_PLANKS.block, TexturedModel.CUBE_ALL);
     }
 
     public static void generateItems(ItemModelGenerator generator) {

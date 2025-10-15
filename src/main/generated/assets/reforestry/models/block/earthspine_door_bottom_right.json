@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "reforestry:block/earthspine_door_bottom",
+    "top": "reforestry:block/earthspine_door_top"
+  }
+}

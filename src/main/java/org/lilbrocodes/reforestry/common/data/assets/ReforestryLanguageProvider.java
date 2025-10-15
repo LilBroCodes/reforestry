@@ -13,13 +13,19 @@ public class ReforestryLanguageProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         builder.add(ModBlocks.BLUE_SPRUCE_SAPLING.block, "Blue Spruce Sapling");
+        builder.add(ModBlocks.BLUE_SPRUCE_LEAVES.block, "Blue Spruce Leaves");
+
         builder.add(ModBlocks.EARTHSPINE_SAPLING.block, "Earthspine Sapling");
         builder.add(ModBlocks.EARTHSPINE_LOG.block, "Earthspine Log");
         builder.add(ModBlocks.EARTHSPINE_WOOD.block, "Earthspine Wood");
         builder.add(ModBlocks.STRIPPED_EARTHSPINE_LOG.block, "Stripped Earthspine Log");
         builder.add(ModBlocks.STRIPPED_EARTHSPINE_WOOD.block, "Stripped Earthspine Wood");
         builder.add(ModBlocks.EARTHSPINE_LEAVES.block, "Earthspine Leaves");
-        builder.add(ModBlocks.BLUE_SPRUCE_LEAVES.block, "Blue Spruce Leaves");
+
+        builder.add(ModBlocks.EARTHSPINE_DOOR.block, "Earthspine Door");
+        builder.add(ModBlocks.EARTHSPINE_STAIRS.block, "Earthspine Stairs");
+        builder.add(ModBlocks.EARTHSPINE_TRAPDOOR.block, "Earthspine Trapdoor");
+        builder.add(ModBlocks.EARTHSPINE_PLANKS.block, "Earthspine Planks");
 
         builder.add(ModItemGroups.REFORESTRY_ITEMS_GROUP, "Re::Forestry");
     }

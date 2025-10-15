@@ -14,7 +14,9 @@ import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import org.lilbrocodes.reforestry.common.registry.ModBlocks;
 import org.lilbrocodes.reforestry.common.registry.ModTrunkPlacers;
+import org.lilbrocodes.reforestry.mixin.accessor.TreeNodeDataAccessor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -46,7 +48,7 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
         double trunkStep = 0.4;
         double trunkTiltMin = 10;
         double trunkTiltMax = 20;
-        int trunkHeightVariance = 3;
+        int trunkHeightVariance = 2;
 
         int branchCountMin = 3;
         int branchCountMax = 6;
@@ -63,7 +65,7 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
 
 
         int baseRadius = trunkBaseRadius + random.nextInt(1);
-        int totalHeight = this.getHeight(random) + random.nextInt(trunkHeightVariance + 1);
+        int totalHeight = this.getHeight(random) + 2 + random.nextInt(trunkHeightVariance + 1);
 
         double tiltDegrees = trunkTiltMin + random.nextDouble() * (trunkTiltMax - trunkTiltMin);
         double tiltRadians = Math.toRadians(tiltDegrees);
@@ -85,18 +87,19 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
             double radius = baseRadius * (1.0 - trunkTaperAmount * progress);
 
             boolean isTopLayer = t + trunkStep >= totalHeight;
-            fillCircleSmooth(world, replacer, random, center, radius, config, isTopLayer);
+            fillCircleSmooth(replacer, random, center, radius, config);
             topPos = center;
         }
 
         int branchCount = branchCountMin + random.nextInt(branchCountMax - branchCountMin + 1);
         List<FoliagePlacer.TreeNode> foliage = new java.util.ArrayList<>();
 
-        if (addTrunkTopFoliage)
-            foliage.add(new FoliagePlacer.TreeNode(topPos.up(), 0, true));
+        List<Double> usedAngles = new ArrayList<>();
 
         for (int i = 0; i < branchCount; i++) {
-            double branchYaw = random.nextDouble() * Math.PI * 2;
+            double branchYaw = pickSpacedAngle(random, usedAngles, Math.toRadians(40)); // 40° min separation
+            usedAngles.add(branchYaw);
+
             double branchTilt = Math.toRadians(branchTiltMin + random.nextDouble() * (branchTiltMax - branchTiltMin));
             double bdx = Math.cos(branchYaw) * Math.cos(branchTilt);
             double bdy = Math.sin(branchTilt);
@@ -118,6 +121,7 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
             BlockPos endPos = branchStart;
             double segmentStep = 0.4;
 
+            List<BlockPos> positions = new ArrayList<>();
             for (double t = 0; t < branchLength; t += segmentStep) {
                 double bx = branchStart.getX() + bdx * t;
                 double by = branchStart.getY() + bdy * t;
@@ -129,22 +133,50 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
                     log = log.with(Properties.AXIS, branchAxis);
                 }
                 replacer.accept(center, log);
+                positions.add(center);
 
                 endPos = center;
             }
 
-            foliage.add(new FoliagePlacer.TreeNode(endPos.up(), 0, false));
-            if (branchLength > 6 && random.nextBoolean()) {
-                BlockPos mid = branchStart.add(
-                        (int)Math.round(bdx * branchLength * 0.5),
-                        (int)Math.round(bdy * branchLength * 0.5),
-                        (int)Math.round(bdz * branchLength * 0.5)
-                );
-                foliage.add(new FoliagePlacer.TreeNode(mid, 0, false));
-            }
+            FoliagePlacer.TreeNode node = new FoliagePlacer.TreeNode(endPos.up(), 0, false);
+            if (!(((Object) node) instanceof TreeNodeDataAccessor accessor)) return foliage;
+            positions.forEach(accessor::reForestry$addPosition);
+
+            foliage.add(node);
         }
 
         return foliage;
+    }
+
+    private static double pickSpacedAngle(Random random, List<Double> usedAngles, double minSeparation) {
+        if (usedAngles.isEmpty()) {
+            return random.nextDouble() * Math.PI * 2;
+        }
+
+        int samples = 16;
+        double bestAngle = 0;
+        double bestMinDist = -1;
+
+        for (int i = 0; i < samples; i++) {
+            double candidate = random.nextDouble() * Math.PI * 2;
+
+            double minDist = usedAngles.stream()
+                    .mapToDouble(a -> angularDistance(a, candidate))
+                    .min().orElse(Math.PI);
+
+            if (minDist > bestMinDist) {
+                bestMinDist = minDist;
+                bestAngle = candidate;
+            }
+        }
+
+        double jitter = (random.nextDouble() - 0.5) * minSeparation * 0.3;
+        return (bestAngle + jitter + Math.PI * 2) % (Math.PI * 2);
+    }
+
+    private static double angularDistance(double a, double b) {
+        double diff = Math.abs(a - b) % (Math.PI * 2);
+        return diff > Math.PI ? (Math.PI * 2 - diff) : diff;
     }
 
     private static Direction.Axis getDominantAxis(double x, double y, double z) {
@@ -157,13 +189,11 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
     }
 
     private void fillCircleSmooth(
-            TestableWorld world,
             BiConsumer<BlockPos, BlockState> replacer,
             Random random,
             BlockPos center,
             double radius,
-            TreeFeatureConfig config,
-            boolean topLayer
+            TreeFeatureConfig config
     ) {
         int ceil = (int)Math.ceil(radius);
         for (int x = -ceil; x <= ceil; x++) {
@@ -171,17 +201,9 @@ public class EarthspineTrunkPlacer extends TrunkPlacer {
                 double dist = Math.sqrt(x * x + z * z);
                 if (dist <= radius) {
                     BlockPos pos = center.add(x, 0, z);
-                    placeLog(replacer, pos, topLayer ? ModBlocks.EARTHSPINE_WOOD.block.getDefaultState() : config.trunkProvider.get(random, pos));
+                    replacer.accept(pos, config.trunkProvider.get(random, pos));
                 }
             }
         }
-    }
-
-    private void placeLog(
-            BiConsumer<BlockPos, BlockState> replacer,
-            BlockPos pos,
-            BlockState state
-    ) {
-        replacer.accept(pos, state);
     }
 }

@@ -13,12 +13,20 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import org.lilbrocodes.reforestry.common.registry.ModFoliagePlacers;
+import org.lilbrocodes.reforestry.mixin.accessor.TreeNodeDataAccessor;
+
+import java.util.EnumSet;
+import java.util.List;
 
 public class EarthspineFoliagePlacer extends FoliagePlacer {
     public static final Codec<EarthspineFoliagePlacer> CODEC = RecordCodecBuilder.create(
             instance -> fillFoliagePlacerFields(instance)
                     .apply(instance, EarthspineFoliagePlacer::new)
     );
+
+    public enum ShapeType {
+        SPHERE, CYLINDER, CONE, CUBE
+    }
 
     public EarthspineFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);
@@ -41,31 +49,63 @@ public class EarthspineFoliagePlacer extends FoliagePlacer {
             int radius,
             int offset
     ) {
-        if (treeNode.isGiantTrunk()) return;
+        if (treeNode.isGiantTrunk() || !(((Object) treeNode) instanceof TreeNodeDataAccessor accessor))
+            return;
 
-        BlockPos center = treeNode.getCenter();
-        int foliageRadius = 2 + random.nextInt(2);
-        int foliageHeightRange = 2 + random.nextInt(2);
+        int horizontalRadius = 3;
+        int verticalRadius = 3;
+        float density = 0.5f;
+        ShapeType shape = ShapeType.SPHERE;
+        float falloff = 0.5f;
+        EnumSet<Direction> excludedSides = EnumSet.noneOf(Direction.class);
 
-        for (int dx = -foliageRadius; dx <= foliageRadius; dx++) {
-            for (int dy = -foliageHeightRange; dy <= foliageHeightRange; dy++) {
-                for (int dz = -foliageRadius; dz <= foliageRadius; dz++) {
-                    double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-                    if (dist <= foliageRadius + 0.5) {
-                        BlockPos leafPos = center.add(dx, dy, dz);
-                        if (world.testBlockState(leafPos, s ->
-                                s.isAir() ||
-                                        s.isOf(Blocks.VINE) ||
-                                        s.isOf(Blocks.SNOW) ||
-                                        s.isOf(config.foliageProvider.get(random, leafPos).getBlock()))) {
+        List<BlockPos> basePositions = accessor.reForestry$getPositions();
 
-                            BlockState leaf = config.foliageProvider.get(random, leafPos);
-                            placer.placeBlock(leafPos, leaf);
+        for (BlockPos basePos : basePositions) {
+            for (int dx = -horizontalRadius; dx <= horizontalRadius; dx++) {
+                for (int dy = -verticalRadius; dy <= verticalRadius; dy++) {
+                    for (int dz = -horizontalRadius; dz <= horizontalRadius; dz++) {
+
+                        BlockPos targetPos = basePos.add(dx, dy, dz);
+
+                        if (!isInsideShape(dx, dy, dz, shape, horizontalRadius, verticalRadius))
+                            continue;
+
+                        if (Math.abs(dx) + Math.abs(dz) == 1 && dy == 0) {
+                            Direction dir = getDirectionFromOffset(dx, dz);
+                            if (dir != null && excludedSides.contains(dir))
+                                continue;
                         }
+
+                        float dist = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
+                        float chance = density * (1.0f - dist / (horizontalRadius + verticalRadius) * falloff);
+
+                        if (random.nextFloat() < chance)
+                            placeLeaf(random, placer, world, targetPos, config);
                     }
                 }
             }
         }
+    }
+
+    private static Direction getDirectionFromOffset(int dx, int dz) {
+        if (dx == 1 && dz == 0) return Direction.EAST;
+        if (dx == -1 && dz == 0) return Direction.WEST;
+        if (dz == 1 && dx == 0) return Direction.SOUTH;
+        if (dz == -1 && dx == 0) return Direction.NORTH;
+        return null;
+    }
+
+    private boolean isInsideShape(int dx, int dy, int dz, ShapeType shape, double horizontalRadius, double verticalRadius) {
+        return switch (shape) {
+            case CUBE -> true;
+            case CYLINDER -> (dx * dx + dz * dz) <= horizontalRadius * horizontalRadius;
+            case CONE -> {
+                double heightFactor = 1.0 - ((double) dy / verticalRadius);
+                yield heightFactor > 0 && (dx * dx + dz * dz) <= (horizontalRadius * horizontalRadius * heightFactor * heightFactor);
+            }
+            case SPHERE -> (dx * dx + dy * dy + dz * dz) <= (horizontalRadius * horizontalRadius);
+        };
     }
 
     static void placeLeaf(Random random, BlockPlacer placer, TestableWorld world, BlockPos pos, TreeFeatureConfig config) {

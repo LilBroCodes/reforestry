@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -113,7 +114,7 @@ public class EarthspineFoliagePlacer extends FoliagePlacer {
                 state.isAir() || state.isOf(config.foliageProvider.get(random, pos).getBlock())
                         || state.isOf(Blocks.VINE)
                         || state.isOf(Blocks.SNOW))) {
-            placer.placeBlock(pos, config.foliageProvider.get(random, pos));placer.placeBlock(pos, config.foliageProvider.get(random, pos));
+            placer.placeBlock(pos, config.foliageProvider.get(random, pos).with(LeavesBlock.PERSISTENT, true));
         }
     }
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "reforestry:block/earthspine_planks",
+    "side": "reforestry:block/earthspine_planks",
+    "top": "reforestry:block/earthspine_planks"
+  }
+}

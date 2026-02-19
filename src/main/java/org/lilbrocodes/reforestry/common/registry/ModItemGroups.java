@@ -3,7 +3,7 @@ package org.lilbrocodes.reforestry.common.registry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
-import org.lilbrocodes.composer_reloaded.api.registry.lazy.DeferredItemGroupRegistry;
+import com.codex.composer.api.v1.registry.lazy.DeferredItemGroupRegistry;
 import org.lilbrocodes.reforestry.Reforestry;
 
 public class ModItemGroups {

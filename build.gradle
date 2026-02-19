@@ -1,5 +1,6 @@
 plugins {
-    id 'fabric-loom' version '1.10.2'
+    id 'fabric-loom' version '1.14.10'
+    id 'com.modrinth.minotaur' version '2.+'
     id 'maven-publish'
 }
 
@@ -26,11 +27,21 @@ fabricApi {
 repositories {
     maven {
         name = "Composer Maven"
-        url "https://dl.cloudsmith.io/public/lilbrocodes/composer-reloaded/maven/"
+        url = "https://dl.cloudsmith.io/public/project-codex/composer/maven/"
+    }
+
+    maven {
+        name "Constructive"
+        url "https://dl.cloudsmith.io/public/lilbrocodes/constructive/maven/"
+    }
+
+    maven {
+        name = "Cardinal Components"
+        url = "https://maven.ladysnake.org/releases"
     }
     maven {
-        name "Ladysnake [Composer/CCA]"
-        url 'https://maven.ladysnake.org/releases'
+        name "Fuzzy Hamsters"
+        url "https://maven.fzzyhmstrs.me/"
     }
 }
 
@@ -40,7 +51,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
-    modImplementation "org.lilbrocodes:composer-reloaded:$composer_version"
+    modImplementation "com.codex:composer:$composer_version+mc$minecraft_version"
 
     modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:5.2.3"
 }
